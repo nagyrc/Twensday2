@@ -66,3 +66,37 @@ mtbs_fire <- st_read(dsn = 'mtbs',
 
 st_crs(mtbs_fire)
 #yes, this was correctly transformed
+
+
+
+#plot mtbs fires and usa_shp
+plot(usa_shp[1])
+
+#this runs forever
+plot(mtbs_fire[1])
+
+#plot both together
+plot(mtbs_fire[1], add = TRUE)
+
+
+####convert mtbs polygons to raster
+require(raster)
+
+# Create a generic raster, set the extent to the same as mtbs_fire
+r.raster <- raster()  
+
+extent(r.raster) <- extent(mtbs_fire)
+res(r.raster) <- 250 # set cell size to 250 metres
+
+# Make a raster of the mtbs fires:
+mtbs.r <- rasterize(mtbs_fire, r.raster)
+
+#crop raster to lower 48
+mtbs.sub <- crop(mtbs.r, usa_shp)
+
+
+
+
+
+
+
