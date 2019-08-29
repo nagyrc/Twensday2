@@ -73,7 +73,7 @@ st_crs(mtbs_fire)
 plot(usa_shp[1])
 
 #this runs forever
-plot(mtbs_fire[1])
+#plot(mtbs_fire[1])
 
 #plot both together
 plot(mtbs_fire[1], add = TRUE)
@@ -93,6 +93,8 @@ mtbs.r <- rasterize(mtbs_fire, r.raster)
 
 #crop raster to lower 48
 mtbs.sub <- crop(mtbs.r, usa_shp)
+
+plot(mtbs.sub)
 
 
 
