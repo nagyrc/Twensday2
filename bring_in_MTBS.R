@@ -35,7 +35,7 @@ if (!file.exists(us_shp)) {
 
 #bring in shapefile of US states; select 48 contiguous; tranform to match crs of other layers; remove extra fields
 usa_shp <- st_read(file.path('states_shp'), layer = 'cb_2016_us_state_20m') %>%
-  filter(!(NAME %in% c("Alaska", "Hawaii", "Puerto Rico"))) %>%
+  dplyr::filter(!(NAME %in% c("Alaska", "Hawaii", "Puerto Rico"))) %>%
   dplyr::select(STATEFP, STUSPS) %>%
   setNames(tolower(names(.))) %>% 
   st_transform(.,crs1b)
