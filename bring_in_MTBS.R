@@ -78,23 +78,17 @@ plot(mtbs_fire[1], add = TRUE)
 
 ####convert mtbs polygons to raster
 require(raster)
+library(fasterize)
 
 # Create a generic raster, set the extent to the same as mtbs_fire
-r.raster <- raster()  
-
-extent(r.raster) <- extent(mtbs_fire)
-res(r.raster) <- 250 # set cell size to 250 metres
+r.raster <- raster("data/EmptyGrid/Empty_250_US.tif")
 
 # Make a raster of the mtbs fires:
-mtbs.r <- rasterize(mtbs_fire, r.raster)
+mtbs.r <- fasterize(st_transform(mtbs_fire, crs(r.raster)), r.raster)
 
-#crop raster to lower 48
-mtbs.sub <- crop(mtbs.r, usa_shp)
+plot(mtbs.r)
 
-plot(mtbs.sub)
-
-
-
+writeRaster(x = mtbs.r, filename = "data/data_output/large-fire-occurrence_1984-2017_mtbs_zillow-grid.tif")
 
 
 
