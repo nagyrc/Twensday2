@@ -88,6 +88,8 @@ mtbs.r <- fasterize(st_transform(mtbs_fire, crs(r.raster)), r.raster)
 
 plot(mtbs.r)
 
+if(!dir.exists("data/data_output")) {dir.create("data/data_output")}
+
 writeRaster(x = mtbs.r, filename = "data/data_output/large-fire-occurrence_1984-2017_mtbs_zillow-grid.tif")
 
 
